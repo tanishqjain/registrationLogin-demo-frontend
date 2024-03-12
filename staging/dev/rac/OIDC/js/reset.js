@@ -1,28 +1,22 @@
 
+var cdcApiData = {
+  apiKey: '',
+  childApiKey: '',
+  brand: '',
+  language: ''
+}
+
 var loadCdcWebSDK = function (){
   const urlSearchParamsObj = getUrlParametersObj();
 
-  //All default values are hardcoded to RAC Claim channel
-  // var cdcApiData = {
-  //   apiKey: '4_gHm0DRWOrvDGpkArRMRUxg',
-  //   childApiKey: '4_PcPPDZQeaqk-rl92MzyF5Q',
-  //   brand: 'FRIGIDAIRE',
-  //   language: 'EN'
-  // }
-  var cdcApiData = {
-    apiKey: '',
-    childApiKey: '',
-    brand: '',
-    language: ''
-  }
   cdcApiData = getCdcApiData(cdcApiData, urlSearchParamsObj);
 
   try {
     const language = cdcApiData.language;
     if (cdcApiData.childApiKey) {
-      cdcscripturl = `https://cdns.gigya.com/js/gigya.js?apiKey=4_TySGM90Uf7f7GGLgX4HX-w&childApiKey=${cdcApiData.childApiKey}&lang=${language}`;
+      cdcscripturl = `https://cdns.gigya.com/js/gigya.js?apiKey=${cdcApiData.apiKey}&childApiKey=${cdcApiData.childApiKey}&lang=${language}`;
     } else {
-      cdcscripturl =  `https://cdns.gigya.com/js/gigya.js?apiKey=4_TySGM90Uf7f7GGLgX4HX-w&lang=${language}`
+      cdcscripturl =  `https://cdns.gigya.com/js/gigya.js?apiKey=${cdcApiData.apiKey}&lang=${language}`
     }
 
     var cdcApiScript = document.createElement("script");
@@ -41,7 +35,7 @@ var loadCdcWebSDK = function (){
  * An asynchronos function from the CDC API.
  */
 var onGigyaServiceReady = function() {
-  if (cdcApiData.brand && cdcApiData.brand === 'fgd'){
+  if (cdcApiData.brand && cdcApiData.brand === 'FGD'){
     var screenSetName = 'FRIGIDAIRE'
   }
   try {
