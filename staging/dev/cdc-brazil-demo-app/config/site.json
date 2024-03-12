@@ -1,0 +1,17 @@
+{
+    "menu_description": "CDC Starter Kit",
+    "site_title": "SAP CDC Demo",
+    "site_description": "Sample Site with basic Customer Data Cloud capabilities",
+    "menu_bg_color": "white",
+    "menu_bg_color_hover": "#1d87ff2a",
+    "menu_text_color": "#999",
+    "text_color": "#7a7a7a",
+    "background_color": "#f4f4f4",
+    "menu_pic": "sap.png",
+    "main_url": "../cdc-brazil-demo-app/index.html",
+    "main_pic": "sap.png",
+    "raas_prefix": "Default",
+    "console_prefix": "eu1",
+    "lang": "en",
+    "apiKey": "3_YDQaTGcjISjrfuDGZlF5U2svrtXqQIF2CrJWm9srwon07wezIaOp3kcmfN_43nGs"
+}

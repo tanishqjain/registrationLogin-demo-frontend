@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv='cache-control' content='max-age=360000'>
+
+  <head>
+    <title>Electrolux OIDC Proxy Page</title>
+	<script>
+	
+		(function(h,o,u,n,d) {
+			
+			h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+			
+			d=o.createElement(u);d.async=1;d.src=n
+			
+			n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+		
+		})(window,document,'script','https://www.datadoghq-browser-agent.com/eu1/v4/datadog-rum.js','DD_RUM')
+	
+		window.DD_RUM.onReady(function() {
+			
+			window.DD_RUM.init({
+			
+				clientToken: 'pubad7995da4e689ca594bca8bd9e9460ed',
+				
+				applicationId: 'c417b966-6d99-4ba9-a5af-708d8f3f44e2',
+				
+				site: 'datadoghq.eu',
+				
+				service: 'electrolux-sso-pages',
+				
+				env: 'dev',
+				// Specify a version number to identify the deployed version of your application in Datadog 
+				version: '1.0.0',
+				
+				sessionSampleRate: 100,
+				
+				sessionReplaySampleRate: 20,
+				
+				trackUserInteractions: true,
+				
+				trackResources: true,
+				
+				trackLongTasks: true,
+				
+				defaultPrivacyLevel: 'mask-user-input',
+			
+			});
+
+			window.DD_RUM.startSessionReplayRecording();
+		
+		});
+
+		debugger;
+
+	</script>
+
+	<script type="text/javascript" lang="javascript" src="https://cdc.myaccount.electroluxgroup.eu/JS/gigya.js?apiKey=3_MPoKZvKgqWRRUUENtIQ55e5FJbHQtJpVV9HN5UVoahm6ZjBpuIL658U6niR8oQm8"></script>
+	<script type="text/javascript">
+												
+						var s2 = document.createElement("script");
+						
+						s2.type = "text/javascript";
+						
+						s2.async = true;
+						
+						s2.src = "https://cdc.myaccount.electroluxgroup.eu/JS/gigya.oidc.js?apiKey=3_MPoKZvKgqWRRUUENtIQ55e5FJbHQtJpVV9HN5UVoahm6ZjBpuIL658U6niR8oQm8";
+
+						loginUrl = "https://identity.myaccount.electroluxgroup.eu/staging/dev/OIDC/login.html" ;//?apiKey=" + apiKey + "&spName=" + spName + "&language=" + language + "&render_screen=" + render_screen + "&country=" + country + "&sourceCode=" + sourceCode + "&optanonConsent=" + optanonConsent + "&UAID=" + UAID + "&passReturnURL=" + passReturnURL + "&_gl=" + _gl;
+						
+						errorUrl = "https://identity.myaccount.electroluxgroup.eu/staging/dev/OIDC/error.html"
+
+						s2.innerHTML = JSON.stringify({
+							
+							loginURL: loginUrl,
+														
+							errorURL: errorUrl,
+							
+							storageDomainOverride: "cdc.myaccount.electroluxgroup.eu"
+						
+						});
+						
+						document.head.appendChild(s2);
+				
+					
+				</script>
+			
+			</head>
+				<body>
+				<div id="loading-spinner">
+					<div class="loading-spinner__wheel">
+
+						<script>
+								var cssId = "css/spinnerELX.css";
+								var head  = document.getElementsByTagName('head')[0];
+								var link  = document.createElement('link');
+								link.id   = cssId;
+								link.rel  = 'stylesheet';
+								link.type = 'text/css';
+								link.href =  cssId;
+								link.media = 'all';
+								head.appendChild(link);
+
+						</script>
+					
+					</div>
+				</div>
+				</body>
+</html>

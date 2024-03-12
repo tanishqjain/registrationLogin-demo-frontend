@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	
+	<head>
+
+		<title>Electrolux OIDC Consent Page</title>
+
+		<script type="text/javascript" src="https://cdns.gigya.com/js/gigya.js?apiKey=3__S6SlTAlTfRoqtcsFN1mdz75RvnOsQxJz1NW7HWSd3PUS-9hjMMALhP3_ETux96A"></script>
+		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+	
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+
+		<style>
+		/* ** --snipped-- ** */
+		</style>
+		
+	</head>
+	
+	<script type="text/javascript">
+
+		function componentDidMount(){
+					
+			const queryString = window.location.search;
+
+			const urlParams = new URLSearchParams(queryString);
+					
+			var pageLocation = window.location.href;
+
+			pageLocation = pageLocation.toString();
+
+			console.log(typeof(pageLocation));
+			
+			var commonUrl = pageLocation.substr(0,pageLocation.lastIndexOf('/'));
+
+			const clientID = urlParams.get('clientID');
+					
+			const context = urlParams.get('context');
+					
+			const scope = urlParams.get('scope');
+					
+			const UID = urlParams.get('UID');
+
+			const spName = urlParams.get('spName');
+
+			const language = urlParams.get('language');
+
+			const render_screen = urlParams.get('render_screen');
+
+			const country = urlParams.get('country');
+					
+			var consent = {scope, clientID, context, UID};
+					
+			const consentObjJS = consent;
+						
+			consentObjJS.consent = true;
+
+			consentObjJS.scope = consentObjJS.scope.replace(/[+]/g, ' '); // -
+					
+			gigya.accounts.getAccountInfo({callback: function res(r){console.log(r);}});
+						
+			calculateSignature(consentObjJS, spName, language, render_screen, country, commonUrl);
+				
+		}
+
+		function calculateSignature(consentObjJS, spName, language, render_screen, country, commonUrl) {
+					
+			console.log(consentObjJS);
+					
+			var consentObjSimplifiedJS = JSON.stringify(consentObjJS);
+					
+			const data = {
+				method: 'POST',
+				body: consentObjSimplifiedJS,
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+					'Authorization': 'Basic MTg0NzFhMDMtMjQ3OS00Mjk4LTlkZjUtOGZlZmY4MzI0YTgyOmFYeHY5Q1pwTDVueDh5NXl4cGtEYTNsQkpFUnJSRW5LRTlZVjQ5TXd4THVpNWJSdDlpOHh4QkpteVJqN3VnYXM='
+				},
+				redirect: 'follow'
+			};
+					
+			fetch('https://eu-gb.functions.cloud.ibm.com/api/v1/namespaces/Dhruv.Jain1%40ibm.com_dev/actions/signature/Creating%20Signature%20for%20OIDC?blocking=true', data).then(function(response) {
+			   response.text().then(function(text) {
+				   console.log(text,response);
+					var text = JSON.parse(text);
+					console.log(text.response.result.sig);
+					//var b_js_newUrl="https://ibm-hosted-pages.s3.ap-south-1.amazonaws.com/proxy.html?mode=afterConsent&consent=" + consentObjSimplifiedJS + "&sig=" + text.response.result.sig + "&spName=" + spName + "&language=" + language + "&render_screen=" + render_screen + "&country=" + country;
+					var b_js_newUrl= commonUrl + "/proxy.html?mode=afterConsent&consent=" + consentObjSimplifiedJS + "&sig=" + text.response.result.sig + "&spName=" + spName + "&language=" + language + "&render_screen=" + render_screen + "&country=" + country;
+					console.log('URL: ' + b_js_newUrl);
+					window.location.href=b_js_newUrl;
+				});
+			});
+					
+		}
+
+	</script>
+
+	
+	<body onload="componentDidMount()">
+		
+		<h2>LOADING.....</h2>
+		
+		<div class="standardDiv" id="errorsDiv">
+			
+
+		</div>
+		
+	</body>
+
+</html>

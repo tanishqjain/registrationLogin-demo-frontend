@@ -1,0 +1,62 @@
+.main-container{
+    margin: auto;
+}
+
+.accordion{
+    margin: auto;
+    padding-top: 10px;
+}
+
+.fa-chevron-down{
+    float: right;
+}
+
+.brand-logo{
+    width: 70;
+}
+
+.navbar{
+    background-color: #48a547;
+}
+
+.nav-link{
+color: white;
+font-size: 18;
+}
+
+.nav-link:hover{
+    color: black;
+}
+
+/*---------------------------General CSS to achive Web View----------------------------------*/
+
+
+.gigya-input-submit.left-aligned{
+    width: 25% !important;
+}
+
+.gigya-form-error-msg.left-aligned{
+    float: left;
+    padding-left: 0px !important;
+}
+
+.gigya-composite-control-link.left-aligned{
+    float: left;
+}
+
+/*-------------------CSS Specific to Preference center and profile update-------------------*/
+
+
+.preferenceCenterHeader {
+    margin: 5% 0 5% 0;
+}
+
+.preferenceCenterHeaderContent {
+    color: gray; 
+    text-align: center;
+}
+
+.tooltip:hover .tooltiptext-otherEmail{
+    visibility: visible;
+    opacity: 1;
+  }

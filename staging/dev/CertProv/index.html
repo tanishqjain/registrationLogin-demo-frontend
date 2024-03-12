@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <title>CDC Certificate Provisioning</title>
+</head>
+<body>
+
+<!-- Header -->
+<header class="text-white py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <!-- Logo -->
+                <img id="logo" src="images/Electrolux.svg" alt="Electrolux">
+            </div>
+            <div class="col-6">
+                <!-- Logo -->
+                <h2 class="float-right">CDC Certificate Provisioning</h2>
+            </div>
+            <!-- You can add more elements or navigation links on the right side of the header if needed -->
+        </div>
+    </div>
+</header>
+
+<div class="protected-content">
+    <!-- Content Section -->
+<!-- Content Section -->
+<div class="container py-4">
+    <button type="button" class="btn btn-danger col-md-1 float-right" onclick="logout()">Logout</button>
+</div>
+
+<main class="container py-4">
+    <!-- Loader Modal -->
+    <div class="modal" id="loaderModal" tabindex="-1" role="dialog" aria-labelledby="loaderModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <p>Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Accordion -->
+    <div id="accordion">
+
+        <!-- Section 1 - Standard -->
+        <div class="card">
+            <div class="card-header" id="standardSectionHeader">
+                <h2 class="mb-0">
+                    <button class="btn btn-link text-dark" data-toggle="collapse" data-target="#standardSection" aria-expanded="true" aria-controls="standardSection">
+                        <h4>Standard Flow</h4>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="standardSection" class="collapse show" aria-labelledby="standardSectionHeader" data-parent="#accordion">
+                <div class="card-body">
+                    <form onsubmit="return submitStandard();">
+                        <div class="form-row">
+                            <!-- Data Center Dropdown -->
+                            <div class="form-group col-md-6">
+                                <select class="form-control" id="dataCenter" name="dataCenter">
+                                    <option value="" disabled selected>Select Data Center</option>
+                                    <option value="EU">EU</option>
+                                    <option value="APAC">APAC</option>
+                                    <option value="NA">NA</option>
+                                    <option value="LA">LA</option>
+                                </select>
+                            </div>
+
+                            <!-- Environment Dropdown -->
+                            <div class="form-group col-md-6">
+                                <select class="form-control" id="environment" name="environment" >
+                                    <option value="" disabled selected>Select Environment</option>
+                                    <option value="prod">Production</option>
+                                    <option value="nonprod">Non-Prod</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <!-- Electrolux POC Email Input -->
+                                <input type="email" class="form-control" id="electroluxEmail" name="electroluxEmail" placeholder="Enter Electrolux POC Email" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <!-- Developer Email Input -->
+                                <input type="email" class="form-control" id="developerEmail" name="developerEmail" placeholder="Enter Developer Email" required>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary float-right mb-3 col-md-2">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2 - Custom -->
+        <div class="card">
+            <div class="card-header" id="customSectionHeader">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed text-dark" data-toggle="collapse" data-target="#customSection" aria-expanded="false" aria-controls="customSection">
+                        <h4>Customization Flow</h4>
+                    </button>
+
+                </h2>
+            </div>
+
+            <div id="customSection" class="collapse" aria-labelledby="customSectionHeader" data-parent="#accordion">
+                <div class="card-body">
+                    <form onsubmit="return submitCustomized();">
+                        <div class="form-row">
+                            <!-- Data Center Dropdown -->
+                            <div class="form-group col-md-6">
+                                <select class="form-control" id="custom-dataCenter" name="dataCenter" onchange="handleDropdownChange()" required>
+                                    <option value="" disabled selected>Select Data Center</option>
+                                    <option value="EU">EU</option>
+                                    <option value="APAC">APAC</option>
+                                    <option value="NA">NA</option>
+                                    <option value="LA">LA</option>
+                                </select>
+                            </div>
+
+                            <!-- Environment Dropdown -->
+                            <div class="form-group col-md-6">
+                                <select class="form-control" id="custom-environment" name="environment" onchange="handleDropdownChange()" required>
+                                    <option value="" disabled selected>Select Environment</option>
+                                    <option value="prod">Production</option>
+                                    <option value="nonprod">Non-Prod</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <!-- Electrolux POC Email Input -->
+                                <input type="email" class="form-control" id="custom-electroluxEmail" name="electroluxEmail" placeholder="Enter Electrolux POC Email" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <!-- Developer Email Input -->
+                                <input type="email" class="form-control" id="custom-developerEmail" name="developerEmail" placeholder="Enter Developer Email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded p-3 mb-3">
+                            <h5>Select Sites Here</h5>
+
+                            <div class="additional-row-container">
+                            
+                                <div class="form-row additional-row" id="first-customize-row">
+                                    <!-- Environment Dropdown -->
+                                    <div class="form-group col-md-4">
+                                        <select class="form-control" name="EnvironmentDetailed" id="environmentDropdown" onchange="populateCountries(event)" required>
+                                            <option value="" disabled selected>Select Environment</option>
+                                            <!-- Add options here as needed -->
+                                        </select>
+                                    </div>
+                                    
+                                    <!-- Country Dropdown -->
+                                    <div class="form-group col-md-4">
+                                        <select class="form-control" name="country" id="countryDropdown" onchange="populateBrands(event)" required>
+                                            <option value="" disabled selected>Select Country</option>
+                                            <!-- Add options here as needed -->
+                                        </select>
+                                    </div>
+    
+                                    <!-- Brand Dropdown -->
+                                    <div class="form-group col-md-3">
+                                        <select class="form-control" name="brand" id="brandDropdown" required>
+                                            <option value="" disabled selected>Select Brand</option>
+                                            <!-- Add options here as needed -->
+                                        </select>
+                                    </div>
+    
+                                    <!-- Remove Button -->
+                                    <div class="form-group col-md-1">
+                                        <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+                                    </div>
+    
+                                </div>
+                                
+                            </div>
+                            <button type="button" class="btn btn-success" onclick="addRow()">Add Row</button>
+                        </div>
+                        
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary float-right mb-3 col-md-2">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- End Accordion -->
+
+</main>   
+</div>
+
+
+<!-- Footer -->
+<footer class="text-white py-3 mt-auto">
+    <div class="container">
+        <div class="text-center">
+            <p>&copy; All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdc.myaccount.electroluxgroup.eu/js/gigya.js?apiKey=4_9GNGWSQlEWVxr6u9xj6z9A"></script>
+<script src="scripts/common.js"></script>
+<script src="scripts/customized.js"></script>
+<script src="scripts/standard.js"></script>
+</body>
+</html>

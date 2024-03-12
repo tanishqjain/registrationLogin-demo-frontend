@@ -1,0 +1,4 @@
+{
+  "jwks_uri": "https://accounts.eu1.gigya.com/accounts.getJWTPublicKey?apiKey=4_9GNGWSQlEWVxr6u9xj6z9A&V2=true",
+  "issuer": "https://fidm.gigya.com/jwt/4_9GNGWSQlEWVxr6u9xj6z9A/"
+}

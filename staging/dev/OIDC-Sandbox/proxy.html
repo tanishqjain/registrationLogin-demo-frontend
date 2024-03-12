@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+
+    <title>Electrolux OIDC Proxy Page</title>
+
+	<!--------GA Scripts--------->
+	
+	<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" data-domain-script="<ec74a0e5-7980-4fc5-a2ec-68e77a61d1d6>"></script>
+
+	<script>
+		function OptanonWrapper() {document.getElementById('onetrust-consent-sdk').setAttribute('data-nosnippet', '');}
+	</script>
+
+  <script type="text/javascript">
+		window.dataLayer = window.dataLayer || [];
+		window.dataLayer.push({'pageType':'KitchenConfigurator', 'pageLanguage':'<en-GB>', 'universalPropertyId':'<UA-52521113-2>'});
+	</script>
+	
+	<script>
+		!function(e,t,a,n,g){e[n]=e[n]||[],e[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});
+		var m=t.getElementsByTagName(a)[0],r=t.createElement(a);r.async=!0,r.src="//www.googletagmanager.com/gtm.js?id=GTM-T2MQ9T",m.parentNode.insertBefore(r,m)}(window,document,"script","dataLayer");
+	</script>
+
+	<script type="text/javascript">
+	
+		var apiKey = "3_MPoKZvKgqWRRUUENtIQ55e5FJbHQtJpVV9HN5UVoahm6ZjBpuIL658U6niR8oQm8"; // CDC IdP Dev EU API Key
+
+		var loginUrl, login_hint, sourceCode, consentUrl, errorUrl, childApiKey, language, render_screen, country, commonUrl, pageLocation, spName = "",Optanon,Optanonconsent,UAID;
+
+		// Parse the URL parameters into urlParamsArr
+		var urlParamsArr = {};
+		
+		var urlParams = document.location.search.substr(1).split("&");
+		
+		for (var i = 0; i < urlParams.length; i++) {
+		
+			var ret = urlParams[i].toString().split("=");
+			
+			urlParamsArr[ret[0]] = decodeURIComponent(ret[1]);
+		
+		}
+		debugger;
+		if (urlParamsArr["gig_ui_locales"]) {
+
+			ui_locales = urlParamsArr["gig_ui_locales"];
+
+			spName = ui_locales.split('-')[0];
+
+			language =  ui_locales.split('-')[1];
+
+			/*localStorage.setItem("spName", spName);
+
+			localStorage.setItem("language", language);
+
+			console.log("Language and spName received");*/
+
+		} else if((urlParamsArr["spName"]) && (urlParamsArr["language"])){
+
+			spName = urlParamsArr["spName"];
+
+			language =  urlParamsArr["language"];
+
+			console.log(spName, language,"Language and spName received");
+
+
+		} else{
+
+			language = "EN";
+
+			spName = "ELX";
+
+			console.log("language and spName set by default");
+
+		}
+
+
+
+		//console.log("URLParams:", urlParamsArr);
+
+		if (urlParamsArr["gig_login_hint"]) {
+
+			login_hint = urlParamsArr["gig_login_hint"];
+
+			render_screen = login_hint.split('-')[0];
+
+			country =  login_hint.split('-')[1];
+			
+			sourceCode =  login_hint.split('-')[2];	
+			childApiKey =  login_hint.split('-').slice(3).join('-');
+			//Optanon = login_hint.split('-')[4];
+			//Optanonconsent = Optanon.split('~')[0];
+			//UAID = login_hint.split('~')[1];
+			
+			//childApiKey = "3_fGpexXI0cCSRIGhF3nd5fUcH7Em9hMKKknu5rEn_FF28575s88c9xgtxMq_Kw7CD";
+			
+			/*localStorage.setItem("render_screen", render_screen);
+			
+			localStorage.setItem("country", country);
+			
+			localStorage.setItem("sourceCode", sourceCode);
+			
+			localStorage.setItem("childApiKey", childApiKey);
+			console.log("Screen to be rendered, country, source Code and childApiKey received");*/
+		}  else if((urlParamsArr["render_screen"]) && (urlParamsArr["country"]) && (urlParamsArr["sourceCode"])  && (urlParamsArr["childApiKey"])){
+
+			render_screen = urlParamsArr["render_screen"];
+
+			country =  urlParamsArr["country"];
+			
+			sourceCode =  urlParamsArr["sourceCode"];
+			
+			childApiKey =  urlParamsArr["childApiKey"];
+
+			console.log(render_screen, country, sourceCode, childApiKey, "render_screen, country, sourceCode and childApiKey received");
+
+
+		}else{
+
+			render_screen = "login";
+
+			country = "UK";
+
+			sourceCode = "150";
+			
+			childApiKey = "3_fGpexXI0cCSRIGhF3nd5fUcH7Em9hMKKknu5rEn_FF28575s88c9xgtxMq_Kw7CD";
+
+			console.log("Screen to be rendered, country, sourceCode and childApiKey set by default");
+
+		}
+
+		// Include Gigya JS WebSDK
+		addJs(apiKey);
+
+		//Check Cookie issue
+		let onGigyaServiceReady = function() {
+
+			//Checking Cookies issue and return to Source 
+			debugger;
+				if(document.cookie === "") {
+					var message = {
+						dataName: 'Cookies Issue,Please redirect from Proxy Page',
+						dataType: 'Error'
+						};
+						window.top.postMessage(message, '*');
+						console.log("error message", message);
+				} else{
+					console.log("Everything is fine");
+
+				}
+					addOidcJs(apiKey);
+		}
+		
+		// Add Gigya Web SDK
+		function addJs(spApiKey) {
+
+			var s1 = document.createElement("script");
+			
+			s1.type = "text/javascript";
+			
+			s1.async = true;
+			
+			s1.src = "https://cdc.myaccount.electroluxgroup.eu/JS/gigya.js?apiKey=" + spApiKey + "&language=" + language;
+			
+			s1.innerHTML = JSON.stringify({
+				storageDomainOverride: "cdc.myaccount.electroluxgroup.eu"
+			});
+
+			document.head.appendChild(s1);
+		}
+		
+		// Add Gigya Web SDK OIDC
+		function addOidcJs(apiKey) {	
+									
+			var s2 = document.createElement("script");
+			
+			s2.type = "text/javascript";
+			
+			s2.async = true;
+			
+			s2.src = "https://cdc.myaccount.electroluxgroup.eu/JS/gigya.oidc.js?apiKey=" + apiKey;
+			/*s2.innerHTML = JSON.stringify({
+                storageDomainOverride: "cdc.idp-dev.electroluxgroup.eu"
+            });*/
+
+			pageLocation = window.location.href;
+			
+			pageLocation = pageLocation.toString();
+
+			console.log(typeof(pageLocation));
+			
+			commonUrl = pageLocation.substr(0,pageLocation.lastIndexOf('/'));
+			
+			loginUrl = commonUrl + "/proxy.html?apiKey=" + apiKey + "&spName=" + spName + "&language=" + language + "&render_screen=" + render_screen + "&country=" + country + "&sourceCode=" + sourceCode + "&Optanonconsent=" + Optanonconsent + "&UAID=" + UAID;
+			
+			/*consentUrl = commonUrl + "/consent.html?apiKey=" + apiKey + "&spName=" + spName + "&language=" + language + "&render_screen=" + render_screen + "&country=" + country + "&sourceCode=" + sourceCode;*/
+			
+			errorUrl = commonUrl + "/error.html"
+
+			if (urlParamsArr['childApiKey'] || childApiKey) {
+				
+				loginUrl = commonUrl + "/proxy.html?apiKey=" + apiKey + "&childApiKey=" + childApiKey + "&spName=" + spName + "&language=" + language  + "&render_screen=" + render_screen + "&country=" + country + "&sourceCode=" + sourceCode;// + "&Optanonconsent=" + Optanonconsent + "&UAID=" + UAID;
+				
+				/*consentUrl = commonUrl + "/consent.html?apiKey=" + apiKey + "&childApiKey=" + childApiKey + "&spName=" + spName + "&language=" + language  + "&render_screen=" + render_screen + "&country=" + country + "&sourceCode=" + sourceCode;*/
+			
+			}
+
+			s2.innerHTML = JSON.stringify({
+				
+				//loginURL: loginUrl,
+				
+				/*consentURL: consentUrl,*/
+				
+				errorURL: errorUrl,
+				
+				storageDomainOverride: "cdc.myaccount.electroluxgroup.eu"
+			
+			});
+			
+			document.head.appendChild(s2);
+		
+		}
+
+			///////////////////////////////////////////////////////////////////////////
+			
+		
+    
+	</script>
+  
+  </head>
+  
+  <body onload="getCdcLoginFrame()">
+	
+	  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T2MQ9T" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
+
+	  <div id="page-wrapper">
+
+		<div id="cdc-login-container">
+
+        <div id="loading-spinner">
+
+          <div class="loading-spinner__wheel"></div>
+
+	      </div>
+
+    </div>
+
+		<div id="error-wrapper" style="display: none;">
+
+			<div id="error-inner-wrapper">
+
+			   <h2 id="error-header"></h2>
+
+			   <p id="error-message-text"></p>
+
+			</div>
+
+		</div>
+
+    </div>
+
+    <script type="text/javascript" src="js/tools.js"></script>
+
+    <script type="text/javascript" src="js/login.js"></script>
+
+
+	<div id="hybris" style="margin-left:25%; margin-top:2%;"></div>
+	<div id="loading-spinner">
+		<div class="loading-spinner__wheel">
+
+			<script>
+
+				if(spName == "ELX"){
+					
+					var cssId = "css/spinnerELX.css";
+					var head  = document.getElementsByTagName('head')[0];
+					var link  = document.createElement('link');
+					link.id   = cssId;
+					link.rel  = 'stylesheet';
+					link.type = 'text/css';
+					link.href =  cssId;
+					link.media = 'all';
+					head.appendChild(link);
+
+				} else if(spName == "AEG"){
+
+					var cssId = "css/spinnerAEG.css";
+					var head  = document.getElementsByTagName('head')[0];
+					var link  = document.createElement('link');
+					link.id   = cssId;
+					link.rel  = 'stylesheet';
+					link.type = 'text/css';
+					link.href =  cssId;
+					link.media = 'all';
+					head.appendChild(link);
+
+				} else if(spName == "ZAN"){
+
+					var cssId = "css/spinnerZAN.css";
+					var head  = document.getElementsByTagName('head')[0];
+					var link  = document.createElement('link');
+					link.id   = cssId;
+					link.rel  = 'stylesheet';
+					link.type = 'text/css';
+					link.href =  cssId;
+					link.media = 'all';
+					head.appendChild(link);
+
+				} else {
+
+					var cssId = "css/spinnerELX.css";
+					var head  = document.getElementsByTagName('head')[0];
+					var link  = document.createElement('link');
+					link.id   = cssId;
+					link.rel  = 'stylesheet';
+					link.type = 'text/css';
+					link.href =  cssId;
+					link.media = 'all';
+					head.appendChild(link);
+
+				}
+
+			</script>
+		
+		</div>
+	</div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html class="no-js">
+  <head>
+    <input type="hidden" value="2021-04-05 12:50" />
+
+    <meta charset="utf-8" />
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+    <meta http-equiv="cache-control" content="no-cache" />
+
+    <meta http-equiv="expires" content="0" />
+
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <title>Login</title>
+
+    <meta name="description" content="Login" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <!-- Place favicon.ico in the root directory --> 
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdns.gigya.com/js/gigya.js?apiKey=3_B50EB6GNQXu2KA5p4yVBfUsN3gwBqeB9zjMOZ1t4o3IijKtBQRPaU1vK74xGUsbe"
+    ></script>
+
+    <script>
+var cdcApiData = {
+  apiKey: '4_CrTrrP09zT-d7_LKFqqbIg', 
+  childApiKey: '',
+  spName: '',
+  country: '',
+  language: '',
+  render_screen: '',
+  sourceCode: '',
+  passReturnURL: ''
+}
+debugger;
+var urlSearchParamsObj;
+var queryString;
+queryString = window.location.search;
+urlSearchParamsObj = new URLSearchParams(queryString);
+
+
+
+
+                    if (urlSearchParamsObj && urlSearchParamsObj.has('gig_ui_locales')) {
+
+                        ui_locales = urlSearchParamsObj.get('gig_ui_locales');
+
+                        cdcApiData.spName = ui_locales.split('|')[0];
+
+                        cdcApiData.language =  ui_locales.split('|')[1];
+
+                        cdcApiData.passReturnURL = ui_locales.split('|')[2];
+
+                    } 
+                    else{
+
+                        cdcApiData.language = "EN";
+
+                        cdcApiData.spName = "ELX";
+
+                        cdcApiData.passReturnURL = "https://www.electrolux.co.uk/";
+
+                    }
+
+
+
+
+if (urlSearchParamsObj && urlSearchParamsObj.has('gig_login_hint')) {
+
+
+
+                        login_hint = urlSearchParamsObj.get('gig_login_hint');
+
+                        cdcApiData.render_screen = login_hint.split('|')[0];
+
+                        cdcApiData.country =  login_hint.split('|')[1].toUpperCase();
+                        
+                        cdcApiData.sourceCode =  login_hint.split('|')[2];  
+                        
+                        cdcApiData.childApiKey =  login_hint.split('|')[3]; 
+                        
+            }        
+           else{
+
+                        cdcApiData.render_screen = "login";
+
+                        cdcApiData.country = "UK";
+
+                        cdcApiData.sourceCode = "150";
+                        
+                        cdcApiData.childApiKey = "3_edh5E5nHgQ6AmXvz0TjH50_kIqzhTKZ1dtAxV7EKlTl2ic_WuXYpb-3gTdMA6ckQ";
+                        
+                    }
+		ACC.gigyaUserMode = 'raas';
+					
+		ACC.eluxGigyaSourceCode = cdcApiData.sourceCode;
+
+		ACC.eluxGigyaLocale = cdcApiData.language; //to be chane
+				
+		ACC.eluxGigyaLanguages = cdcApiData.language.toUpperCase();
+					
+		ACC.eluxGigyaCountry = cdcApiData.country;
+
+      function showLoginScreen() {
+        $("#cdc-login-container").show();
+        var params = {
+          screenSet: `${cdcApiData.spName}-RegistrationLogin`,
+          startScreen: "gigya-login-screen",
+	  context: cdcApiData.passReturnURL,
+	  lang: cdcApiData.language,
+          containerID: "cdc-login-container"
+         // redirectURL: window.location.href
+        };
+        debugger;
+        gigya.accounts.showScreenSet(params);
+      }
+
+function oidccontinue(e) {
+  debugger;
+ gigya.fidm.oidc.op.redirectToContinue({
+    opKey: gigya.apiKey,
+    context: gigya.getUrlParam("context"),
+    login_token: gigya.getLoginToken()
+})
+}
+  
+ /*$(document).ready(function() {
+     oidccontinue();
+ });*/
+  
+//Alternatively, you can place the function
+//inside a Gigya login handler if you only want to do something
+//after the user successfully logs in.
+gigya.accounts.addEventHandlers(
+    {
+        'onLogin': oidccontinue
+    }
+);
+
+    </script>
+  </head>
+
+  <body onload="showLoginScreen()">
+    <div id="page-wrapper">
+      <div id="cdc-login-container"></div>
+    </div>
+  </body>
+</html>

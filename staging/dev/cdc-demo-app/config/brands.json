@@ -1,0 +1,29 @@
+{
+    "brands":[
+        {
+            "label": "Default",
+            "key": "Default",
+            "flag": "Default"
+        },
+        {
+            "label": "AEG",
+            "key": "AEG",
+            "flag": "AEG"
+        },
+        {
+            "label": "Electrolux",
+            "key": "ELX",
+            "flag": "Electrolux"
+        },
+        {
+            "label": "Zanussi",
+            "key": "ZAN",
+            "flag": "Zanussi"
+        },
+        {
+            "label": "LA",
+            "key": "LA",
+            "flag": "LA"
+        }
+    ]
+}

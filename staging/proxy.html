@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <title>Electrolux Saml Proxy page</title>
+	
+	<script type="text/javascript" src="js/iframe-cookie-check.js"></script>
+	<script type="text/javascript">
+		
+		var apiKey = "3_FkK8h2p1ixae9GRVi7oDMmDQLBZ5F3NzNfzWiR0MZjFqx97LqYLGnKvHczYXIinK"; // CDC IdP Stage EU API Key
+
+		// Parse the URL parameters into urlParamsArr
+		var urlParamsArr = {};
+		var urlParams = document.location.search.substr(1).split("&");
+		for (var i = 0; i < urlParams.length; i++) {
+			var ret = urlParams[i].toString().split("=");
+			urlParamsArr[ret[0]] = decodeURIComponent(ret[1]);
+		}
+		
+		// Include Gigya JS WebSDK
+		addJs(apiKey);
+		
+		var onGigyaServiceReady = function () {
+			gigya.hasSession().then(function (sessionExist) {
+			  if (sessionExist) {
+				// Get spName from localstorage
+				var spName = localStorage.getItem("spName");
+				var brandPrefix = spName.split(".")[0].toUpperCase(); //aeg.dev -> AEG
+				gigya.accounts.showScreenSet({
+				  screenSet: brandPrefix + "-RegistrationLogin",
+				  startScreen: "gigya-complete-registration-screen",
+				  onAfterSubmit: onAfterSubmitHandler,
+				});
+			  } else {
+				// Resume Standard flow
+				addSamlJs(apiKey);
+			  }
+			});
+		};
+		
+		// Add Gigya Web SDK
+		function addJs(spApiKey) {
+			var s1 = document.createElement("script");
+			s1.type = "text/javascript";
+			s1.async = true;
+			
+			if (urlParamsArr["language"]) {
+				s1.src = "https://cdc.myaccount.electroluxgroup.eu/js/gigya.js?apiKey=" + spApiKey + "&language=" + urlParamsArr["language"] ;
+			} else {
+				s1.src = "https://cdc.myaccount.electroluxgroup.eu/js/gigya.js?apiKey=" + spApiKey;
+			}
+
+			s1.innerHTML = JSON.stringify({
+				storageDomainOverride: "cdc.myaccount.electroluxgroup.eu"
+			});
+
+			document.head.appendChild(s1);
+		}
+		
+		// Add Gigya Web SDK SAML
+		function addSamlJs(apiKey) {	
+			// Store spName localstorage
+			if (urlParamsArr["spName"]) {
+				localStorage.setItem("spName", urlParamsArr["spName"]);
+			}
+			
+			// Store language localstorage
+			if (urlParamsArr["language"]) {
+				localStorage.setItem("language", urlParamsArr["language"]);
+			}
+						
+			var s2 = document.createElement("script");
+			s2.type = "text/javascript";
+			s2.async = true;
+			s2.src = "https://cdc.myaccount.electroluxgroup.eu/js/gigya.saml.js?apiKey=" + apiKey;
+			var loginUrl = "https://identity.myaccount.electroluxgroup.eu/staging/login.html?apiKey=" + apiKey + "&spName=" + urlParamsArr["spName"] + "&language=" + urlParamsArr["language"];
+			if (urlParamsArr['childApiKey']) {
+				loginUrl = "https://identity.myaccount.electroluxgroup.eu/staging/login.html?apiKey=" + apiKey + "&childApiKey=" + urlParamsArr["childApiKey"] + "&spName=" + urlParamsArr["spName"] + "&language=" + urlParamsArr["language"];
+			}
+			s2.innerHTML = JSON.stringify({
+				loginURL: loginUrl,
+				logoutURL: "https://identity.myaccount.electroluxgroup.eu/staging/logout.html?apiKey=" + apiKey,
+				storageDomainOverride: "cdc.myaccount.electroluxgroup.eu"
+			});
+			document.head.appendChild(s2);
+		}
+		
+		// onAfterSubmitHandler Event handler
+		function onAfterSubmitHandler(eventObj) {
+			//alert("onAfterSubmitHandler :  " + eventObj); 
+
+			// Resume Standard flow
+			addSamlJs(apiKey);
+		}
+    </script>
+  </head>
+  <body></body>
+</html>

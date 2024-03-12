@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html class="no-js">
+
+  <head>
+
+    <input type="hidden" value="2021-04-05 12:50"/>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta http-equiv='cache-control' content='max-age=3600'>
+
+    <meta http-equiv='expires' content='0'>
+
+    <meta http-equiv='pragma' content='no-cache'> 
+
+    <title>SSO Login</title>
+
+    <meta name="description" content="Login">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!--<link rel="stylesheet" href="css/main.css">-->
+    <script type="text/javascript" lang="javascript" src="https://cdns.gigya.com/js/gigya.js?apiKey=4_gHm0DRWOrvDGpkArRMRUxg">
+    </script>
+  </head>
+
+  <body >
+
+    <div id="page-wrapper">
+        <script>
+                          // Parse the URL parameters into urlParamsArr
+            var urlParamsArr = {} , redirecturl,brand;
+            
+            var urlParams = document.location.search.substr(1).split("&");
+            
+            for (var i = 0; i < urlParams.length; i++) {
+            
+              var ret = urlParams[i].toString().split("=");
+              
+              urlParamsArr[ret[0]] = decodeURIComponent(ret[1]);
+            
+            }            
+            if (urlParamsArr["gig_redirecturl"]) {
+
+              redirecturl = urlParamsArr["gig_redirecturl"];
+            }
+            if (urlParamsArr["gig_brand"]) {
+
+              brand = urlParamsArr["gig_brand"];
+            }
+
+		let onGigyaServiceReady = function() {
+
+			//Checking Cookies issue and return to Source 
+		//debugger;	
+        gigya.hasSession().then(function(sessionExist) {
+            if(sessionExist) {
+            gigya.sso.continue();
+            }
+            else{
+            window.location = redirecturl;
+              /*
+                      var userLocation = window.location.href;
+                      var newNonce=Date.now();
+                      var authorizeEndpointLink = "https://cdc.idp-dev.electroluxgroup.eu/oidc/op/v1.0/3_MPoKZvKgqWRRUUENtIQ55e5FJbHQtJpVV9HN5UVoahm6ZjBpuIL658U6niR8oQm8/authorize?client_id=YjXt_gaKqy2mMc3kddOeyV_d&response_type=code&redirect_uri=https://t1-electrolux-qa-b.eluxmkt.com/&scope=openid%20email%20profile%20address%20phone%20uid&display=popup&login_hint=login|IT|756|4_CrTrrP09zT-d7_LKFqqbIg|True|UA-52521113-3|&ui_locales=ELX|de&state=" + userLocation + "&nonce=" + newNonce;
+                      window.location = authorizeEndpointLink;
+                      */
+                    }
+            
+            })
+
+		}
+	</script>	
+    </div>
+
+   <div id="loading-spinner">
+		<div class="loading-spinner__wheel">
+
+			<script>
+
+				if((brand == "ELX")){
+					var cssId = "css/spinnerELX.css";
+					var head  = document.getElementsByTagName('head')[0];
+					var link  = document.createElement('link');
+					link.id   = cssId;
+					link.rel  = 'stylesheet';
+					link.type = 'text/css';
+					link.href =  cssId;
+					link.media = 'all';
+					head.appendChild(link);
+
+				} else if((brand == "AEG")){
+					var cssId = "css/spinnerAEG.css";
+					var head  = document.getElementsByTagName('head')[0];
+					var link  = document.createElement('link');
+					link.id   = cssId;
+					link.rel  = 'stylesheet';
+					link.type = 'text/css';
+					link.href =  cssId;
+					link.media = 'all';
+					head.appendChild(link);
+
+				} else if((brand == "ZAN")){
+					var cssId = "css/spinnerZAN.css";
+					var head  = document.getElementsByTagName('head')[0];
+					var link  = document.createElement('link');
+					link.id   = cssId;
+					link.rel  = 'stylesheet';
+					link.type = 'text/css';
+					link.href =  cssId;
+					link.media = 'all';
+					head.appendChild(link);
+
+				} else {
+					var cssId = "css/spinnerELX.css";
+					var head  = document.getElementsByTagName('head')[0];
+					var link  = document.createElement('link');
+					link.id   = cssId;
+					link.rel  = 'stylesheet';
+					link.type = 'text/css';
+					link.href =  cssId;
+					link.media = 'all';
+					head.appendChild(link);
+
+				}
+
+			</script>
+		
+		</div>
+	</div>
+
+
+  </body>
+
+</html>

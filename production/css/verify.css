@@ -1,0 +1,196 @@
+#page-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.verify-page-wrapper {
+  border: 1px solid #cbcfd2;
+  border-radius: 3px;
+  margin: 80px 0;
+}
+
+#inner-wrapper {
+  margin: 80px 60px;
+  display: flex;
+  align-items: stretch;
+}
+
+#brand-logo {
+  padding-left: 40px;
+  padding-right: 40px;
+  border-right: 1px solid #cbcfd2;
+  max-width: 250px;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+#brand-logo img {
+  max-height: 50px;
+  vertical-align: middle;
+}
+
+#message {
+  margin: 20px 40px;
+  max-width: 400px;
+}
+
+#message h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+#message p {
+  margin-top: 0;
+  margin-bottom: 40px;
+}
+
+button, button:focus{
+  outline: none;
+  background: transparent;
+  border: none;
+}
+
+button:active{
+  outline: none;
+  background: transparent;
+  border: none;
+}
+
+/* Specific brand colors */
+/* Electrolux */
+.elx #error-status {
+  font-size: 16px;
+  color: #adb9c3;
+}
+
+.elx #message {
+  color: #011e41;
+}
+
+.elx #message h2 {
+  font-size: 26px;
+}
+
+.elx #message p {
+  font-size: 14px;
+}
+
+.elx #message button {
+  border-radius: 2px;
+  font-size: 16px;
+  padding: 12px 45px;
+  background-color: #011e41;
+  color: #ffffff;
+}
+
+/* AEG */
+.aeg #error-status {
+  font-size: 20px;
+  color: #c80028;
+}
+
+.aeg #message {
+  color: #141414;
+}
+
+.aeg #message h2 {
+  font-size: 32px;
+}
+
+.aeg #message p {
+  font-size: 16px;
+}
+
+.aeg #message button {
+  font-size: 20px;
+  padding: 10px 45px 14px;
+  background-color: #c80028;
+  color: #ffffff;
+}
+
+/* Zanussi */
+.zan #error-status {
+  font-size: 16pt;
+  color: #9f9f9f;
+}
+
+.zan #message {
+  color: #000000;
+}
+
+.zan #message h2 {
+  font-size: 23px;
+}
+
+.zan #message p {
+  font-size: 14px;
+}
+
+.zan #message button {
+  border-radius: 3px;
+  font-size: 16px;
+  padding: 14px 45px 15px;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* DEFAULT */
+.default #error-status {
+  font-size: 16pt;
+  color: #9f9f9f;
+}
+
+.default #message {
+  color: #000000;
+}
+
+.default #message h2 {
+  font-size: 23px;
+}
+
+.default #message p {
+  font-size: 14px;
+}
+
+.default #message button {
+  border-radius: 3px;
+  font-size: 16px;
+  padding: 14px 45px 15px;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+@media only screen and (max-width: 768px) {
+  .verify-page-wrapper {
+    margin: 20px;
+  }
+
+  #inner-wrapper {
+    margin: 40px 20px;
+    display: block;
+    align-items: stretch;
+  }
+
+  #brand-logo {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    margin-bottom: 60px;
+    border: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #message {
+    margin: 0;
+    max-width: 270px;
+  }
+}

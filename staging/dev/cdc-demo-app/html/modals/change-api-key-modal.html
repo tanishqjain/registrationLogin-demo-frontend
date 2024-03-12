@@ -1,0 +1,103 @@
+<!-- Change API Key modal -->
+<div class="modal change-api-key-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">
+                <ion-icon class="change-apikey-icon has-text-info" size="normal" name="key-outline"></ion-icon>
+                <b>
+                    Change API Key & Screenset
+                </b>
+            </p>
+            <button class="delete" aria-label="close" onclick="hideModal('change-api-key')"></button>
+        </header>
+        <section class="modal-card-body">
+
+            <!-- DEFAULT API KEY SECTION -->
+            <!--Simple Input-->
+            <!--Default-->
+            <div class="change-api-key-explanation content has-text-grey is-hiddend">
+                <blockquote>
+                    <span class=""></span>Use this section to change <b>on the fly</b> the API Key working on this site. By default the one used it's the included into the file <code>config/site.json</code>. This default one can be overriden by another
+                    valid API Key.
+                    </span>
+                </blockquote>
+            </div>
+
+            <div class="field default-api-key-field is-hidden">
+                <label>Default API Key <span class="has-text-grey-light">&nbsp;(From File)</span></label>
+                <div class="control">
+                    <code class="config-api-key-input"></code>
+                    <span class="tag is-success config-api-key-input-tag is-hidden">IS ACTIVE</span>
+                    <span class="tag is-grey config-api-key-input-tag-disabled is-hidden">IS NOT ACTIVE</span>
+                </div>
+                <div class="change-api-key-explanation content has-text-grey is-hiddend">
+                    <br>
+                    <blockquote>
+                        <span class=""></span>Paste your new API Key in the field below and click on the <b>Change API Key</b> button to load this site with this new API Key. To restore the initial state, clean the field below or click on the <b>reset</b>                        button. </span>
+                    </blockquote>
+                </div>
+            </div>
+            <label class="f-switch is-hidden">
+                <input type="checkbox" class="is-switch" checked>
+                <i></i>
+                Switch between default and custom api keys
+            </label>
+            <br>
+
+
+            <!-- CUSTOM API KEY SECTION -->
+            <!--Simple Input-->
+            <div class="field">
+                <label>Custom API Key <span class="from-url-notice has-text-grey-light is-hidden">&nbsp;(From URL)</span></label>
+                <div class="control has-validation">
+                    <input type="text" class="input api-key-input">
+                    <span class="tag is-success api-key-input-tag is-hidden">IS ACTIVE</span>
+                    <span class="tag is-grey api-key-input-tag-disabled is-hidden">IS NOT ACTIVE</span>
+                    <div class="api-key-error-label label is-hidden">
+                        <b>Error: </b>
+                        <span class="error-reason"></span>
+                    </div>
+                    <button class="button reset-api-key-button is-reversed-phantom primary-button is-hidden" onClick="clearCustomApiKey()">Reset</button>
+                    <div class="reset-url-message has-text-danger-dark has-text-left is-size-7 is-hidden">To reset this API Key, please remove it from the URL</div>
+                </div>
+            </div>
+            <div class="api-key-validity-notification content has-text-grey is-hidden">
+                <br>
+                <blockquote>
+                    <b class="has-text-grey-dark">IMPORTANT : </b><span class="">API Key must be valid and legitime to make this feature work properly. To enable your API key to be used here, please follow this <a href="https://github.com/gigya/cdc-starter-kit/blob/master/docs/advanced.md#3-use-your-own-api-key-in-the-online-demo-site" target="_blank"> instructions</a>.</span>
+                </blockquote>
+            </div>
+
+            <!-- CUSTOM SCREENSET PREFIX SECTION -->
+            <!--Simple Input-->
+            <div class="field screenset-prefix-field is-hidden">
+                <div class="api-key-validity-notification content has-text-grey">
+                    <br>
+                    <blockquote>
+                        <span class="has-text-grey"><b>Custom Screenset Prefix.</b> This parameter can be set only by url, and must be a valid screenset prefix ID to work</span>
+                    </blockquote>
+                </div>
+                <label>Custom Screenset Prefix <span class="from-url-notice has-text-grey-light is-hidden">&nbsp;(From URL)</span></label>
+                <div class="control">
+                    <input type="text" class="input screenset-prefix-input is-disabled has-text-success-dark">
+                    <div class="api-key-error-label label is-hidden">
+                        <b>Error: </b>
+                        <span class="error-reason"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="api-key-validity-notification content has-text-grey is-hidden">
+                <br>
+                <blockquote>
+                    <b class="has-text-grey-dark">IMPORTANT : </b><span class="">API Key must be valid and legitime to make this feature work properly. To enable your API key to be used here, please follow this <a href="https://github.com/gigya/cdc-starter-kit/blob/master/docs/advanced.md#3-use-your-own-api-key-in-the-online-demo-site" target="_blank"> instructions</a>.</span>
+                </blockquote>
+            </div>
+        </section>
+        <!-- ACTION BUTTONS -->
+        <footer class="modal-card-foot">
+            <button class="change-api-key-button button is-reversed-phantommmm is-info" onclick="changeAPIKey()">Change API Key</button>
+            <button class="button" onclick="hideModal('change-api-key')">Cancel</button>
+        </footer>
+    </div>
+</div>

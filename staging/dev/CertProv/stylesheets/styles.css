@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'Electrolux Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: url('https://s3-eu-west-1.amazonaws.com/electrolux-newsletter/assets/Fonts/electroluxsans_3_regular.woff');
+}
+
+main {
+    flex: 1;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Electrolux Sans';
+  }
+
+header {
+    background-color: #011E41;
+}
+
+footer {
+    background-color: #011E41 !important;
+}
+
+button[type="submit"] {
+  /* Your styles go here */
+  background-color: #011E41 !important;
+  }
+
+.gigya-style-modern div.gigya-screen-dialog-top{
+    background-color: #011E41 !important;
+}
+
+.gigya-input-submit{
+    background-color: #011E41 !important;
+}
+
+.gigya-screen a, .gigya-screen a:active, .gigya-screen a:link, .gigya-screen a:visited {
+    color: #011E41 !important
+}
+
+.protected-content{
+    display: none;
+}

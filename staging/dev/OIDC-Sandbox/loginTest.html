@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html class="no-js">
+  <head>
+    <input type="hidden" value="2021-04-05 12:50" />
+
+    <meta charset="utf-8" />
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+    <meta http-equiv="cache-control" content="no-cache" />
+
+    <meta http-equiv="expires" content="0" />
+
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <title>Login</title>
+
+    <meta name="description" content="Login" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdc.myaccount.electroluxgroup.eu/js/gigya.js?apiKey=3_MPoKZvKgqWRRUUENtIQ55e5FJbHQtJpVV9HN5UVoahm6ZjBpuIL658U6niR8oQm8"
+    ></script>
+
+    <script>
+function oidccontinue(e) {
+  debugger;
+ gigya.fidm.oidc.op.redirectToContinue({
+    opKey: gigya.apiKey,
+    context: gigya.getUrlParam("context"),
+    login_token: gigya.getLoginToken()
+})
+} 
+var sesiondata;
+var onGigyaServiceReady = function() {
+  debugger;
+gigya.hasSession().then(function(sessionExist) {
+    if(sessionExist) {
+      oidccontinue();
+    }
+})
+}
+  debugger; 
+
+      function showLoginScreen() {
+        $("#cdc-login-container").show();
+        var params = {
+          screenSet: "Default-RegistrationLogin",
+          startScreen: "gigya-login-screen-new",
+          containerID: "cdc-login-container"
+         // redirectURL: window.location.href
+        };
+        debugger;
+        gigya.accounts.showScreenSet(params);
+      }
+ 
+  
+   gigya.accounts.addEventHandlers(
+    {
+        'onLogin': oidccontinue
+    });
+    </script>
+  </head>
+
+  <body onload= "showLoginScreen()" > 
+    <div id="page-wrapper">
+      <div id="cdc-login-container"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+
+    <title>Electrolux OIDC logout Page</title>
+
+	<script async type="text/javascript" lang="javascript" src="https://cdc.myaccount.electroluxgroup.eu/JS/gigya.js?apiKey=4_TySGM90Uf7f7GGLgX4HX-w"></script>
+
+	<script type="text/javascript">
+
+		var apiKey, returnURL, language = "",returladd;
+		// Parse the URL parameters into urlParamsArr
+		debugger;
+		const queryString = window.location.search;
+    	const urlSearchParamsObj = new URLSearchParams(queryString);
+		
+		if (urlSearchParamsObj && urlSearchParamsObj.has('language')) {
+      		language = urlSearchParamsObj.get('language');
+    	}
+		if (urlSearchParamsObj && urlSearchParamsObj.has('apiKey')) {
+      		apiKey = urlSearchParamsObj.get('apiKey');
+    	}
+		if (urlSearchParamsObj && urlSearchParamsObj.has('returnURL')) {
+      		returnURL = urlSearchParamsObj.get('returnURL');
+    	}		
+		/////////////////////////////////////////////////////////////////////////////////
+
+
+		/*function GigyaLoadFunctions() {
+			
+			gigya.accounts.logout({
+				"callback": function (res) {
+			
+					if (res.errorCode === 0 ) {
+						if(returnURL.includes("?"))
+						{
+							returladd = "&logoutStatus=true";
+						}
+						else{
+							returladd = "?logoutStatus=true";
+						}
+						window.location.href= returnURL + returladd;
+			
+					}
+			
+				}
+			
+			});
+		
+		}*/
+		// Include Gigya JS WebSDK
+		//addJs(apiKey);
+
+
+		var onGigyaServiceReady = function () {
+			debugger;
+			//GigyaLoadFunctions();
+
+			gigya.hasSession().then(function (sessionExist) {
+			  
+			  if (sessionExist) {
+
+				gigya.accounts.getAccountInfo({callback: function res(r){console.log(r);}});
+
+				gigya.accounts.logout({
+					
+					"callback": function (res) {
+				
+						if (res.errorCode === 0 ) {
+							
+							if(returnURL.includes("?")) {
+								
+								returladd = "&logoutStatus=true";
+							
+							} else {
+								
+								returladd = "?logoutStatus=true";
+							
+							}
+							
+							if(returladd == "") {
+								
+								returladd = "?logoutStatus=true";
+							
+							}
+							
+							window.location.href= returnURL + returladd;
+				
+						}
+				
+					}
+			
+				});
+			
+			  } else {
+
+					gigya.accounts.logout();
+
+					if(returnURL.includes("?")) {
+								
+						returladd = "&logoutStatus=true";
+							
+					} else {
+								
+						returladd = "?logoutStatus=true";
+							
+					}
+							
+					if(returladd == "") {
+								
+						returladd = "?logoutStatus=true";
+							
+					}
+							
+					window.location.href= returnURL + returladd;
+
+				}
+
+			}); 
+			
+			debugger;
+		}
+		
+		// Add Gigya Web SDK
+		/*function addJs(spApiKey) {
+			
+			var s1 = document.createElement("script");
+			debugger;
+			s1.type = "text/javascript";
+			
+			s1.async = true;
+			
+			s1.src = "https://cdc.myaccount.electroluxgroup.eu/JS/gigya.js?apiKey=" + spApiKey ;//+ "&language=" + language;
+			
+			s1.innerHTML = JSON.stringify({
+				storageDomainOverride: "cdc.myaccount.electroluxgroup.eu"
+			});
+
+			document.head.appendChild(s1);
+		}*/
+    
+	</script>
+  
+  </head>
+  
+  <body><div id="hybris" style="margin-left:25%; margin-top:2%;"></div></body>
+
+</html>

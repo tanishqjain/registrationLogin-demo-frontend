@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html class="no-js">
+
+  <head>
+
+    <input type="hidden" value="2021-04-05 12:50"/>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta http-equiv='cache-control' content='max-age=36000'>
+
+    <meta http-equiv='expires' content='0'>
+
+    <meta http-equiv='pragma' content='no-cache'>
+
+    <title>Login</title>
+
+    <meta name="description" content="Login">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script
+      type="text/javascript"
+      src="https://cdns.gigya.com/js/gigya.js?apiKey=4_gHm0DRWOrvDGpkArRMRUxg"
+    ></script>
+
+  <script type="text/javascript" src="js/LoginPage.js"></script>
+  </head>
+
+  <body onload="getCdcLoginFrame()">
+
+    <div id="page-wrapper">
+
+      <div id="cdc-login-container">
+
+        <div id="loading-spinner">
+
+					<div class="loading-spinner__wheel">
+						<script>
+								var cssId = "css/spinnerELX.css";
+								var head  = document.getElementsByTagName('head')[0];
+								var link  = document.createElement('link');
+								link.id   = cssId;
+								link.rel  = 'stylesheet';
+								link.type = 'text/css';
+								link.href =  cssId;
+								link.media = 'all';
+								head.appendChild(link);
+
+						</script>
+					
+					</div>
+
+				</div>
+
+      </div>
+      
+		<div id="error-wrapper" style="display: none;">
+
+			<div id="error-inner-wrapper">
+
+			   <h2 id="error-header"></h2>
+
+			   <p id="error-message-text"></p>
+
+			</div>
+
+		</div>
+
+    </div>
+
+
+  </body>
+
+</html>
