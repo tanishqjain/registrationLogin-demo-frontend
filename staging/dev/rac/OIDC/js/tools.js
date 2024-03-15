@@ -1,20 +1,12 @@
 // 2021-04-19 08:30
 const CDC_PATH = 'https://cdc.myaccount.electroluxgroup.eu/js/gigya.js';
 //const CDC_PATH = 'https://cdns.eu1.gigya.com/js/gigya.js';
-const DEFAULT_BRAND = 'ELX';
+const DEFAULT_BRAND = 'FRIGIDAIRE';
 const DEFAULT_LANGUAGE = 'en';
 const DEFAULT_RENDERED_SCREEN = 'login';
-const DEFAULT_COUNTRY = 'UK';
-const DEFAULT_SOURCE_CODE = '150';
-const DEFAULT_OPTANONCONSENT = 'False';
-const DEFAULT_UAID = 'UA-52521113-3';
-const DEFAULT_gl = '';
-const LANG_SHORT_IN_URL_LOWER_CASE = 'langshort';
-const LANG_SHORT_IN_URL_UPPER_CASE = 'LANGSHORT'
-const LANG_LONG_IN_URL_LOWER_CASE = 'langlong';
-const LANG_LONG_IN_URL_UPPER_CASE = 'LANGLONG';
-const LETTERS_ONLY_REGEX = /^[a-zA-Z]*$/;
-const DEFAULT_PASS_RETURN_URL = "https://t1-electrolux-qa-b.eluxmkt.com/en-gb/";
+const DEFAULT_COUNTRY = 'US';
+const DEFAULT_SOURCE_CODE = '832';
+const DEFAULT_PASS_RETURN_URL = "https://dev-rac.frigidaireclaim.com/Account/Login/";
 
 /**
  * Get the API key, as mandatory, from the URL.
@@ -432,140 +424,6 @@ function getLanguageFromChangePswUrl(urlSearchParamsObj) {
   }
 }
 
-
-/**
- * Get market from URL query parameters object;
- * 
- * Gets the market from the URL, using the URL search parameters 
- * object. If the market contains a small letter or a special character, for example 
- * uk or ind, all of it is filtered out. The market parameter is then converted to 
- * upper case. If the market parameter can not be found, a default market is returned.
- * 
- * @param {object} urlSearchParamsObj - The URL search parameter object.
- * @throws {error} - If an error occures when fetching the market.
- * @returns {string} - The market in upper case or a default market, if no market found.
- */
- function getMarketFromUrl(urlSearchParamsObj) {
-  try {
-    var market = DEFAULT_MARKET;
-
-    if (urlSearchParamsObj && urlSearchParamsObj.has('market')) {
-      
-      market = urlSearchParamsObj.get('market');
-     
-      market = market.replace(/ /g, "");   
-      
-      market = market.toUpperCase();      
-      
-      market = market.replace(/[^A-Z ]/g, "") ;  
-      
-    }
-
-    return market;
-
-  } catch (err) {
-    throw new Error(`Can not get market: ${err.message}`);
-  }
-}
-/**
- * Get Optanon Consent(GA-OneTrust) from URL query parameters object;
- * 
- * @param {object} urlSearchParamsObj - The URL search parameter object.
- * @throws {error} - If an error occures when fetching the market.
- * @returns {string} - The market in upper case or a default market, if no market found.
- */
- function getoptanonConsentFromUrl(urlSearchParamsObj) {
-  try {
-    var consent = DEFAULT_OPTANONCONSENT;
-
-    if (urlSearchParamsObj && urlSearchParamsObj.has('optanonConsent')) {
-      
-      consent = urlSearchParamsObj.get('optanonConsent');    
-    }
-
-    return consent;
-
-  } catch (err) {
-    throw new Error(`Can not get OptanonConsent: ${err.message}`);
-  }
-}
-/**
- * Get UAID(Google Analytics) from URL query parameters object;
- * 
- * @param {object} urlSearchParamsObj - The URL search parameter object.
- * @throws {error} - If an error occures when fetching the market.
- * @returns {string} - The market in upper case or a default market, if no market found.
- */
- function getUAIDFromUrl(urlSearchParamsObj) {
-  try {
-    var UA_ID = DEFAULT_UAID;
-
-    if (urlSearchParamsObj && urlSearchParamsObj.has('UAID')) {
-      
-      UA_ID = urlSearchParamsObj.get('UAID');    
-    }
-
-    return UA_ID;
-
-  } catch (err) {
-    throw new Error(`Can not get UAID: ${err.message}`);
-  }
-}
-/**
- * Get _gl(Google Analytics) from URL query parameters object;
- * 
- * @param {object} urlSearchParamsObj - The URL search parameter object.
- * @throws {error} - If an error occures when fetching the market.
- * @returns {string} - The market in upper case or a default market, if no market found.
- */
- function get_glFromUrl(urlSearchParamsObj) {
-  try {
-    var UA_ID = DEFAULT_UAID;
-
-    if (urlSearchParamsObj && urlSearchParamsObj.has('_gl')) {
-      
-      UA_ID = urlSearchParamsObj.get('_gl');    
-    }
-
-    return UA_ID;
-
-  } catch (err) {
-    throw new Error(`Can not get _gl: ${err.message}`);
-  }
-}
-/**
- * Get passReturnURL from URL query parameters object;
- * 
- * Gets the passReturnURL from the URL, using the URL search parameters 
- * object. If the passReturnURL parameter can not be found, a default passReturnURL is returned.
- * 
- * @param {object} urlSearchParamsObj - The URL search parameter object.
- * @throws {error} - If an error occures when fetching the passReturnURL.
- * @returns {string} - The passReturnURL in lower case or a default passReturnURL, if no passReturnURL found.
- */
- function getpassReturnURLFromUrl(urlSearchParamsObj) {
-  try {
-    var passReturnURL = DEFAULT_PASS_RETURN_URL;
-
-    if (urlSearchParamsObj && urlSearchParamsObj.has('passReturnURL')) {
-      
-      passReturnURL = urlSearchParamsObj.get('passReturnURL');
-    
-    }else{
-
-      passReturnURL = DEFAULT_PASS_RETURN_URL;
-
-    }
-
-    return passReturnURL;
-
-  } catch (err) {
-    throw new Error(`Can not get passReturnURL: ${err.message}`);
-  }
-}
-
-
-
 /**
  * Loads the CDC API dynamically
  * 
@@ -683,85 +541,6 @@ function getErrorCodeFromUrl(urlSearchParamsObj) {
   } catch (err) {
     throw new Error(`Can not get error code: ${err.message}`);
   }
-}
-
-/**
- * Creates the return link from the query parameters in the URL.
- * 
- * Replaces the parameter LANGLONG, if present, with a combination of country and
- * language. For example country=be and lang=fr will replace the LANGLONG parameter
- * in the URL with fr-be.
- * 
- * Replaces the parameter LANGSHORT, if present, with the language.
- * 
- * If not parameters LANGSHORT or LANGLONG is present in the return URL, the return
- * URL is returned.
- * 
- * @param {string} returnUrl - The return URL in the query
- * @param {string} country - The country in the query
- * @param {string} language - The language in the query
- * @returns {string} - The modified link with language, if present. Otherwise the unmodified link.
- */
- function createReturnLink(returnUrl, country, language) {
-  if (returnUrl.includes(LANG_SHORT_IN_URL_LOWER_CASE) || returnUrl.includes(LANG_SHORT_IN_URL_UPPER_CASE)) {
-    return createLangShortLink(returnUrl, language);
-  }
-
-  if (returnUrl.includes(LANG_LONG_IN_URL_LOWER_CASE) || returnUrl.includes(LANG_LONG_IN_URL_UPPER_CASE)) {
-    return createLangLongLink(returnUrl, country, language);
-  }
-
-  return returnUrl;
-}
-
-/**
- * Creates a link based on the language in return URL.
- * 
- * Replaces the short language parameter in the return URL with
- * the language in the query. If not present, the unmodified
- * return URL is returned.
- * Handles the language parameter both in lower and upper case.
- * 
- * @param {string} returnUrl - The return URL in the query
- * @param {string} langue - The short language in the query
- * @returns {string} - The link where longlang is replaced with the short language.
- */
-function createLangShortLink(returnUrl, language) {
-  if (returnUrl.includes(LANG_SHORT_IN_URL_LOWER_CASE)) {
-    return returnUrl.replace(LANG_SHORT_IN_URL_LOWER_CASE, language);
-  }
-
-  if (returnUrl.includes(LANG_SHORT_IN_URL_UPPER_CASE)) {
-    return returnUrl.replace(LANG_SHORT_IN_URL_UPPER_CASE, language);
-  }
-
-  return returnUrl;
-}
-
-/**
- * Creates a link based on the language and country in return URL.
- *
- * Replaces the long language parameter in the return URL with
- * the language and brand in the query. The language and the brand
- * is separated with a dash. If the parameter is not present, the
- * unmodified URL is returned.
- * Handles the language parameter both in lower and upper case.
- * 
- * @param {string} returnUrl - The return URL in the query
- * @param {string} longLang - The long language in the query
- * @returns {string} - The link where longlang is replaced with the long language.
- */
-function createLangLongLink(returnUrl, country, language) {
-  const langLong = `${language}-${country}`
-  if (returnUrl.includes(LANG_LONG_IN_URL_LOWER_CASE)) {
-    return returnUrl.replace(LANG_LONG_IN_URL_LOWER_CASE, langLong);
-  }
-
-  if (returnUrl.includes(LANG_LONG_IN_URL_UPPER_CASE)) {
-    return returnUrl.replace(LANG_LONG_IN_URL_UPPER_CASE, langLong);
-  }
-
-  return returnUrl;
 }
 
 /**

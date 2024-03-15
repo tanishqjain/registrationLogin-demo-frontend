@@ -6,27 +6,35 @@ var cdcApiData = {
   country: 'US',
   language: 'EN',
   render_screen: 'login',
-  sourceCode: '832'
+  sourceCode: '832',
+  brand: 'FRIGIDAIRE'
 }
 
-var ACC = {};
-
 var onGigyaServiceReady = function() {
-					
+		
   try {
 	gigya.accounts.session.verify({callback: function(event){
 		
 		if(event.errorCode == 0){
 			gigya.accounts.logout();
 		}
-
+    debugger;
 		queryString = window.location.search;
     	urlSearchParamsObj = new URLSearchParams(queryString);
 
 		if (urlSearchParamsObj && urlSearchParamsObj.has('gig_login_hint')){
-			login_hint = urlSearchParamsObj.get('gig_login_hint');
+			var login_hint = urlSearchParamsObj.get('gig_login_hint');
 			cdcApiData.render_screen = login_hint.split('|')[0];
+      cdcApiData.country = login_hint.split('|')[1];
+      cdcApiData.sourceCode = login_hint.split('|')[2];
+      cdcApiData.childApiKey = login_hint.split('|')[3];
 		}
+
+    // if(urlSearchParamsObj && urlSearchParamsObj.has('gig_ui_locales')){
+    //   var ui_locales = urlSearchParamsObj.get('gig_ui_locales');
+    //   cdcApiData.brand = ui_locales.split('|')[0];
+    //   cdcApiData.language = ui_locales.split('|')[1];
+    // }
 	
 		const screenSetParams = createScreenSetParameters(cdcApiData);
 		gigya.accounts.showScreenSet(screenSetParams);
@@ -56,56 +64,16 @@ var onGigyaServiceReady = function() {
 function createScreenSetParameters(cdcApiData){
 
 	const screenSetParams = {
-			screenSet: `FRIGIDAIRE-RegistrationLogin`,
+			screenSet: `${cdcApiData.brand}-RegistrationLogin`,
 			startScreen: `gigya-${cdcApiData.render_screen}-screen`,
 			lang: cdcApiData.language.toLowerCase(),
 			containerID: "cdc-login-container",
-			onAfterScreenLoad: onAfterScreenLoadHandler
+			onAfterScreenLoad: onAfterScreenLoadHandler,
+      onSubmit: onSubmitEventHandler
 		}
 	 
 	return screenSetParams;
 }
-
-function onAfterScreenLoadHandler(event){
-	
-  if (event.currentScreen === 'gigya-login-screen'){
-    var createaccountLink = document.getElementById('login-create-account-link');
-    var forgotPasswordLink = document.getElementById('login-forgot-password-link');
-
-    createaccountLink.addEventListener('click', function (event) {
-      event.preventDefault();
-      switchscreen('FRIGIDAIRE-RegistrationLogin','gigya-register-screen')
-    });
-
-    forgotPasswordLink.addEventListener('click', function (event) {
-      event.preventDefault();
-      switchscreen('FRIGIDAIRE-RegistrationLogin','gigya-forgot-password-screen')
-    });
-
-  }
-
-  if(event.currentScreen === 'gigya-register-screen'){
-    var loginLink = document.getElementById('register-already-have-act-link');
-
-    loginLink.addEventListener('click', function (event) {
-      event.preventDefault();
-      switchscreen('FRIGIDAIRE-RegistrationLogin','gigya-login-screen')
-    });
-
-  }
-
-  if(event.currentScreen === 'gigya-forgot-password-screen'){
-    var loginLink = document.getElementById('forgot-password-back-link');
-
-    loginLink.addEventListener('click', function (event) {
-      event.preventDefault();
-      switchscreen('FRIGIDAIRE-RegistrationLogin','gigya-login-screen')
-    });
-
-  }
-
-}
-
 /**
  * Listen at Gigya login events.
  *

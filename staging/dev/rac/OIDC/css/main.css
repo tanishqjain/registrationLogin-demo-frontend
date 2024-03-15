@@ -67,3 +67,21 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
+@media (min-width: 1024px) {
+  .login-screen-email input, .login-screen-password input{
+    width: 414px !important
+  }
+}
+
+#gigya-login-screen .gigya-composite-control.gigya-composite-control-label.custom-label{
+  width: inherit !important;
+}
+
+.gigya-screen.v2.portrait{
+  width: 500px !important;
+}
+
+#gigya-register-screen .gigya-composite-control.gigya-composite-control-submit{
+  padding-right: 25px;
+}

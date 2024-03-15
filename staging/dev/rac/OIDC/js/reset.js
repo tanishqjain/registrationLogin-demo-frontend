@@ -35,12 +35,10 @@ var loadCdcWebSDK = function (){
  * An asynchronos function from the CDC API.
  */
 var onGigyaServiceReady = function() {
-  if (cdcApiData.brand && cdcApiData.brand === 'FGD'){
-    var screenSetName = 'FRIGIDAIRE'
-  }
+
   try {
     const screenSetParams = {
-      screenSet: `${screenSetName}-RegistrationLogin`,
+      screenSet: `${cdcApiData.brand}-RegistrationLogin`,
       startScreen: "gigya-reset-password-screen",
       containerID: "cdc-reset-psw-container",
       onError: errorHandler,
