@@ -1,5 +1,5 @@
 // 2021-04-19 08:30
-const CDC_PATH = 'https://cdc.myaccount.electroluxgroup.eu/js/gigya.js';
+const CDC_PATH = 'https://cdc.idp-dev.electroluxgroup.us/js/gigya.js';
 //const CDC_PATH = 'https://cdns.eu1.gigya.com/js/gigya.js';
 const DEFAULT_BRAND = 'FRIGIDAIRE';
 const DEFAULT_LANGUAGE = 'en';

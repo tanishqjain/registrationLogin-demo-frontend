@@ -1,5 +1,5 @@
 const isStorageDomainOverride = true; 
-const CDC_PATH = 'https://cdns.gigya.com/js/gigya.js';
+const CDC_PATH = 'https://cdc.idp-dev.electroluxgroup.us/js/gigya.js';
 var cdcApiData = {
   apiKey: '4_gHm0DRWOrvDGpkArRMRUxg',
   childApiKey: '4_PcPPDZQeaqk-rl92MzyF5Q',

@@ -14,9 +14,9 @@ var loadCdcWebSDK = function (){
   try {
     const language = cdcApiData.language;
     if (cdcApiData.childApiKey) {
-      cdcscripturl = `https://cdns.gigya.com/js/gigya.js?apiKey=${cdcApiData.apiKey}&childApiKey=${cdcApiData.childApiKey}&lang=${language}`;
+      cdcscripturl = `https://cdc.idp-dev.electroluxgroup.us/js/gigya.js?apiKey=${cdcApiData.apiKey}&childApiKey=${cdcApiData.childApiKey}&lang=${language}`;
     } else {
-      cdcscripturl =  `https://cdns.gigya.com/js/gigya.js?apiKey=${cdcApiData.apiKey}&lang=${language}`
+      cdcscripturl =  `https://cdc.idp-dev.electroluxgroup.us/js/gigya.js?apiKey=${cdcApiData.apiKey}&lang=${language}`
     }
 
     var cdcApiScript = document.createElement("script");
